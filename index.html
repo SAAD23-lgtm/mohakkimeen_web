@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>داشبورد استمارة المحكمين</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-loader" id="pageLoader" aria-hidden="true">
+    <div class="loader-orbit"><span></span><span></span><span></span></div>
+    <p>جاري تجهيز الداشبورد...</p>
+  </div>
+
+  <div class="aurora" aria-hidden="true">
+    <span class="aurora-one"></span>
+    <span class="aurora-two"></span>
+    <span class="aurora-three"></span>
+  </div>
+
+  <header class="mobile-topbar" aria-label="شريط التحكم للموبايل">
+    <button class="mobile-menu-btn" type="button" id="mobileMenuBtn" aria-label="فتح القائمة" aria-expanded="false" aria-controls="dashboardSidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mobile-brand">
+      <span class="mobile-brand-mark">م</span>
+      <div>
+        <strong>استمارة المحكمين</strong>
+        <small>Dashboard</small>
+      </div>
+    </div>
+    <button class="mobile-print-btn" type="button" id="mobilePrintBtn" aria-label="طباعة التقرير">طباعة</button>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="dashboardSidebar" aria-label="القائمة الجانبية">
+      <div class="brand-card">
+        <div class="brand-mark">م</div>
+        <div>
+          <p class="brand-kicker">Interactive Dashboard</p>
+          <h1>استمارة المحكمين</h1>
+        </div>
+        <button class="sidebar-close" type="button" id="sidebarCloseBtn" aria-label="إغلاق القائمة">×</button>
+      </div>
+
+      <nav class="nav" aria-label="روابط التنقل">
+        <a class="nav-link active" href="#overview"><span>01</span>نظرة عامة</a>
+        <a class="nav-link" href="#distribution"><span>02</span>Pie Charts</a>
+        <a class="nav-link" href="#series"><span>03</span>Series Analysis</a>
+        <a class="nav-link" href="#questions"><span>04</span>كل الأسئلة</a>
+        <a class="nav-link" href="#records"><span>05</span>Serial Table</a>
+        <a class="nav-link" href="#comments"><span>06</span>التعليقات</a>
+      </nav>
+
+      <div class="sidebar-widget">
+        <span class="widget-title">حالة التقرير</span>
+        <strong id="sidebarResponses">—</strong>
+        <small>ردود مكتملة بعد تنظيف البيانات</small>
+      </div>
+
+      <div class="sidebar-actions">
+        <a class="ghost-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfuy8mynKciU7Z9IuBFMTWUq_MiwSmgHf2l4Ct9VRAb8M9jMQ/viewform?usp=preview" target="_blank" rel="noopener">فتح الاستمارة</a>
+        <button class="ghost-button" type="button" id="printBtn">طباعة</button>
+        <button class="primary-button" type="button" id="exportCsvBtn">تصدير CSV</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="hero panel reveal" id="overview">
+        <div class="hero-copy">
+          <span class="eyebrow">لوحة تحكم تفاعلية</span>
+          <h2>تحليل ردود محكّمي التطبيق التعليمي بصورة احترافية</h2>
+          <p>
+            الداشبورد بتعرض مؤشرات عامة، Pie Charts للتوزيعات، Series Analysis للأسئلة،
+            وجدول Serial منظم للردود والتعليقات — بشكل جاهز للعرض والرفع على GitHub Pages.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#distribution">استعراض الرسومات</a>
+            <a class="soft-button" href="#records">عرض الردود</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="ملخص سريع">
+          <div class="hero-ring" id="heroRing">
+            <strong id="heroScore">—</strong>
+            <span>متوسط الملاءمة</span>
+          </div>
+          <div class="hero-mini-card up">
+            <span>أعلى سؤال</span>
+            <strong id="topScoreMini">—</strong>
+          </div>
+          <div class="hero-mini-card down">
+            <span>يحتاج تحسين</span>
+            <strong id="lowScoreMini">—</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="meta-strip reveal" aria-label="بيانات التقرير">
+        <div><span>مصدر البيانات</span><strong id="dataSource">—</strong></div>
+        <div><span>آخر تحديث</span><strong id="generatedAt">—</strong></div>
+        <div><span>صفوف مستبعدة</span><strong id="excludedRows">—</strong></div>
+      </section>
+
+      <section class="kpi-grid reveal" id="kpiGrid" aria-label="المؤشرات العامة"></section>
+
+      <section class="filters-panel panel reveal" aria-label="الفلاتر">
+        <div class="section-heading compact">
+          <span class="eyebrow">تحكم سريع</span>
+          <h3>فلترة وتحليل لحظي</h3>
+          <p>اختار سؤال أو خبرة أو ابحث في التعليقات، وكل الأرقام والجدول هيتحدثوا تلقائيًا.</p>
+        </div>
+        <div class="filters-grid">
+          <label class="filter-control">
+            <span>السؤال المختار</span>
+            <select id="questionSelect"></select>
+          </label>
+          <label class="filter-control">
+            <span>سنوات الخبرة</span>
+            <select id="experienceFilter"></select>
+          </label>
+          <label class="filter-control search-control">
+            <span>بحث في التعليقات</span>
+            <input id="searchInput" type="search" placeholder="اكتب كلمة للبحث..." />
+          </label>
+          <button type="button" class="soft-button reset-button" id="resetFiltersBtn">مسح الفلاتر</button>
+        </div>
+      </section>
+
+      <section class="section-block reveal" id="distribution">
+        <div class="section-heading">
+          <span class="eyebrow">Pie Charts</span>
+          <h3>التوزيعات الرئيسية</h3>
+          <p>نظرة سريعة على توزيع التقييمات والخبرات والرأي العام والسؤال المحدد.</p>
+        </div>
+        <div class="charts-grid four" id="mainCharts"></div>
+      </section>
+
+      <section class="section-block reveal" id="series">
+        <div class="section-heading">
+          <span class="eyebrow">Series Analysis</span>
+          <h3>ترتيب الأسئلة حسب نسبة الملاءمة</h3>
+          <p>كل بار يوضح متوسط تقييم السؤال على مقياس من 0 إلى 100%.</p>
+        </div>
+        <div class="panel series-panel">
+          <div class="series-toolbar">
+            <button class="chip-button active" type="button" data-sort="desc">الأعلى أولًا</button>
+            <button class="chip-button" type="button" data-sort="asc">الأقل أولًا</button>
+            <button class="chip-button" type="button" data-sort="original">ترتيب الاستمارة</button>
+          </div>
+          <div class="series-list" id="questionBars"></div>
+        </div>
+      </section>
+
+      <section class="section-block reveal" id="questions">
+        <div class="section-heading">
+          <span class="eyebrow">Question Cards</span>
+          <h3>Pie Chart لكل سؤال</h3>
+          <p>كروت منفصلة لتوزيع إجابات المحكمين على كل سؤال من أسئلة التقييم.</p>
+        </div>
+        <div class="question-grid" id="questionCards"></div>
+      </section>
+
+      <section class="section-block reveal" id="records">
+        <div class="section-heading inline-heading">
+          <div>
+            <span class="eyebrow">Serial Data</span>
+            <h3>جدول الردود</h3>
+            <p>الردود مرتبة برقم مسلسل مع متوسط التقييم والرأي العام والتعليق.</p>
+          </div>
+          <span class="count-pill" id="filteredCount">—</span>
+        </div>
+        <div class="table-card panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Serial</th>
+                  <th>التاريخ</th>
+                  <th>سنوات الخبرة</th>
+                  <th>متوسط التقييم</th>
+                  <th>الرأي العام</th>
+                  <th>التعليق</th>
+                </tr>
+              </thead>
+              <tbody id="serialTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block reveal" id="comments">
+        <div class="section-heading">
+          <span class="eyebrow">Comments</span>
+          <h3>التعديلات والتعليقات المقترحة</h3>
+          <p>تعليقات المحكمين الظاهرة بعد تطبيق الفلاتر الحالية.</p>
+        </div>
+        <div class="comments-grid" id="commentsGrid"></div>
+      </section>
+
+      <footer class="footer">
+        <span>Dashboard generated for review and presentation</span>
+        <strong>© استمارة المحكمين</strong>
+      </footer>
+    </main>
+  </div>
+
+  <button type="button" class="scroll-top" id="scrollTopBtn" aria-label="الرجوع للأعلى">↑</button>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
